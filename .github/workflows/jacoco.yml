@@ -1,0 +1,39 @@
+name: Run JaCoCo
+
+on:
+  push:
+
+jobs:
+  run-jacoco:
+    name: '${{ matrix.os }}'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macos-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: af43a3e71f2bdb4765294f7d6314b1428737849d
+
+    - name: Set up JDK 21 for project
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        cache: maven
+
+    - name: Overwrite old pom.xml
+      run: |
+        curl -o new_pom.xml https://pastebin.com/raw/brTvCfKz
+        mv new_pom.xml pom.xml
+
+    - name: Build project with JDK 21
+      run: mvn test
+
+    - name: Upload JaCoCo reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacoco-report-$(basename $GITHUB_REPOSITORY)
+        path: '**/target/site/jacoco/**/*.html'
