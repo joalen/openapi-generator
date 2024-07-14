@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        ref: af43a3e71f2bdb4765294f7d6314b1428737849d
+        ref: 0768ddcd7c7bd8b03871486fd5f07ac0bb04d65a
 
     - name: Set up JDK 21 for project
       uses: actions/setup-java@v3
