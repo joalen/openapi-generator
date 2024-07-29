@@ -38,6 +38,7 @@ jobs:
         git clone https://github.com/javapathfinder/jpf-core.git /tmp/jpf-core
         cd /tmp/jpf-core
         ./gradlew buildJars
+        
     - name: Run JPF on JAR files
       shell: bash
       run: |
